@@ -16,11 +16,11 @@ const productSchema = new Schema(
       required: true,
     },
     categories: {
-      type: String,
+      type: [String],
       required: true,
     },
     price: {
-      type: String,
+      type: Number,
       required: true,
     },
     artist: {
@@ -32,9 +32,10 @@ const productSchema = new Schema(
       required: true,
       min: 0,
       max: 1,
-    }
+    },
   },
-  // { timestamps: true }
+ 
 )
+
 
 module.exports = mongoose.model('Product', productSchema)

@@ -33,7 +33,8 @@ exports.getAllProducts = async (req, res) => {
     console.log(artist)
     const query = artist ? { artist }: {}
 
-    const products = await Product.find(query).populate('categories')
+    const products = await Product.find(query)
+      .populate('categories')
     if (!products) {
       return res.status(404).json({ message: 'Products not found' })
     }

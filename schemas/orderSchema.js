@@ -2,11 +2,13 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const orderSchema = new Schema({
-  orderItems: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'OrderItem',
-    required: true,
-  }],
+  orderItems: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'OrderItem',
+      required: true,
+    },
+  ],
   shippingAddress1: {
     type: String,
     required: true,
@@ -37,6 +39,10 @@ const orderSchema = new Schema({
   },
   totalPrice: {
     type: Number,
+  },
+  categories: {
+    type: [String],
+    required: true,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
