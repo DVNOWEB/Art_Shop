@@ -183,7 +183,6 @@ exports.getUserOrders = async (req, res) => {
     if (!userOrderList) {
       return res.status(404).json({ message: 'Order list not found' })
     }
-    console.log(userOrderList)
     res.status(200).json(userOrderList)
   } catch (err) {
     res.status(500).json({ err: err.message })
