@@ -50,16 +50,16 @@ const userSchema = new Schema({
       ref: 'Order',
     },
   ],
-});
+})
 
-  // Payment info for future orders
-  // payment: {
-  //   cardName: { type: String },
-  //   cardNumber: { type: String },
-  //   expMonth: { type: String },
-  //   expYear: { type: String },
-  //   cvv: { type: String },
-  // },
+// Payment info for future orders
+// payment: {
+//   cardName: { type: String },
+//   cardNumber: { type: String },
+//   expMonth: { type: String },
+//   expYear: { type: String },
+//   cvv: { type: String },
+// },
 
 // change _id to id in frontend
 // userSchema.virtual('id').get(() => {
@@ -71,4 +71,3 @@ const userSchema = new Schema({
 // })
 
 module.exports = mongoose.model('User', userSchema)
-

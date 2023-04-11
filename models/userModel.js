@@ -4,30 +4,62 @@ const auth = require('../authenticator/auth')
 
 exports.addUser = async (req, res) => {
   try {
-    const { firstName, lastName, email, password, isAdmin, address, street, city, zip, country, orders } = req.body
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      isAdmin,
+      address,
+      street,
+      city,
+      zip,
+      country,
+      orders,
+    } = req.body
 
-    if (!firstName || !lastName || !email || !password || !address || !address.street || !address.city || !address.zip || !address.country) {
-      console.log(firstName, lastName, email, password, address, street, city, zip, country);
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !password ||
+      !address ||
+      !address.street ||
+      !address.city ||
+      !address.zip ||
+      !address.country
+    ) {
+      console.log(
+        firstName,
+        lastName,
+        email,
+        password,
+        address,
+        street,
+        city,
+        zip,
+        country
+      )
       return res.status(400).json({ error: 'Please fill in all fields' })
     }
 
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-   const _user = new User({
-     firstName,
-     lastName,
-     email,
-     passwordHash: hash,
-     isAdmin,
-     address: {
-       street: address.street,
-       city: address.city,
-       zip: address.zip,
-       country: address.country,
-     },
-     orders,
-   })
+    const _user = new User({
+      firstName,
+      lastName,
+      email,
+      passwordHash: hash,
+      isAdmin,
+      address: {
+        street: address.street,
+        city: address.city,
+        zip: address.zip,
+        country: address.country,
+      },
+      orders,
+    })
 
     const user = await _user.save()
 
@@ -59,17 +91,19 @@ exports.loginUser = async (req, res) => {
   } catch (err) {
     res.status(500).json({ err: err.message })
   }
-} 
+}
 
 // Update users first and last name
 exports.updateUser = async (req, res) => {
   try {
-    const user = await User.findOne({ _id: req.params.id }).select('-passwordHash')
-      if (!user) {
-        return res.status(404).json({ message: 'User not found' })
-      }
-       user.firstName = req.body.firstName || user.firstName
-       user.lastName = req.body.lastName || user.lastName
+    const user = await User.findOne({ _id: req.params.id }).select(
+      '-passwordHash'
+    )
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    }
+    user.firstName = req.body.firstName || user.firstName
+    user.lastName = req.body.lastName || user.lastName
 
     const updatedUser = await user.save()
 

@@ -1,5 +1,5 @@
 const router = require('express').Router()
-// const { verifyToken, isAdmin } = require('../authenticator/auth');
+const { verifyToken, isAdmin } = require('../authenticator/auth')
 const {
   createNewOrder,
   getAllOrders,
@@ -12,30 +12,30 @@ const {
   getUserOrders,
 } = require('../models/orderModel')
 
-router.post('/', createNewOrder)
+router.post('/', verifyToken, isAdmin, createNewOrder)
 
 // get all orders
-router.get('/', getAllOrders)
+router.get('/', isAdmin, getAllOrders)
 
 // get a single order
-router.get('/:id', getSingleOrder)
+router.get('/:id', isAdmin, getSingleOrder)
 
 // update order status
-router.get('/status/:id', orderStatus)
+router.get('/status/:id', isAdmin, orderStatus)
 
 // update an order
-router.put('/:id', updateOrder)
+router.put('/:id', isAdmin, updateOrder)
 
 // delete an order
-router.delete('/:id', deleteOrder)
+router.delete('/:id', isAdmin, deleteOrder)
 
 // get a total sales
-router.get('/get/totalsales', getTotalSales);
+router.get('/get/totalsales', isAdmin, getTotalSales)
 
 // get order count
-router.get('/get/count', getOrderCount);
+router.get('/get/count', isAdmin, getOrderCount)
 
 // get user orders
-router.get('/get/userorders/:userId', getUserOrders);
+router.get('/get/userorders/:userId', isAdmin, getUserOrders)
 
 module.exports = router

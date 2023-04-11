@@ -1,5 +1,5 @@
 const router = require('express').Router()
-// const { verifyToken } = require('../authenticator/auth')
+const { verifyToken, isAdmin } = require('../authenticator/auth')
 const {
   addUser,
   loginUser,
@@ -8,24 +8,20 @@ const {
   getAllUsers,
 } = require('../models/userModel')
 
-
 // register user sign in
 router.post('/add', addUser)
 // login user
 router.post('/login', loginUser)
 
 // update user if user
-router.put('/:id', updateUser)
+router.put('/:id', verifyToken, updateUser)
 
 // ADMIN ROUTES
 
 // delete user if admin
-router.delete('/:id', deleteUser)
+router.delete('/:id', isAdmin, deleteUser)
 
 // get all users if admin
-router.get('/', getAllUsers)
-
-// update user if admin or user
-// router.put('/:id', updateUser)
+router.get('/', isAdmin, getAllUsers)
 
 module.exports = router

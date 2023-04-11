@@ -4,8 +4,6 @@ const { Schema } = mongoose
 const orderItemSchema = new Schema({
   quantity: {
     type: Number,
-    min: 1,
-    max: 1,
     required: true,
   },
   product: {

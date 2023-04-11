@@ -14,7 +14,7 @@ exports.createNewOrder = async (req, res) => {
     user,
   } = req.body
 
-  // create order items first and save it then create order
+  // create order items first and save it, then create order
   const orderItemIds = await Promise.all(
     req.body.orderItems.map(async (orderItem) => {
       let newOrderItem = new OrderItem({
@@ -70,7 +70,7 @@ exports.getAllOrders = async (req, res) => {
     if (!orderList) {
       return res.status(404).json({ message: 'Order list not found' })
     }
-    res.status(200).json(orderList)
+    res.status(200).json({ orderList })
   } catch (err) {
     res.status(500).json({ err: err.message })
   }
@@ -85,7 +85,7 @@ exports.getSingleOrder = async (req, res) => {
       return res.status(404).json({ message: 'Order not found' })
     }
     // res.status(200).json(order)
-    res.send(order)
+    res.send({ order })
   } catch (err) {
     res.status(500).json({ err: err.message })
   }
@@ -102,7 +102,7 @@ exports.orderStatus = async (req, res) => {
     if (!order) {
       return res.status(404).json({ message: 'Order not found' })
     }
-    res.status(200).json(order)
+    res.status(200).json({ order })
   } catch (err) {
     res.status(500).json({ err: err.message })
   }
@@ -120,7 +120,7 @@ exports.updateOrder = async (req, res) => {
     if (!order) {
       return res.status(404).json({ message: 'Order not found' })
     }
-    res.status(200).json(order)
+    res.status(200).json({ order })
   } catch (err) {
     res.status(500).json({ err: err.message })
   }
@@ -183,7 +183,7 @@ exports.getUserOrders = async (req, res) => {
     if (!userOrderList) {
       return res.status(404).json({ message: 'Order list not found' })
     }
-    res.status(200).json(userOrderList)
+    res.status(200).json({ userOrderList })
   } catch (err) {
     res.status(500).json({ err: err.message })
   }

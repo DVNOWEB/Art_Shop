@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 // verifyToken
-// const { verifyToken, isAdmin } = require('../authenticator/auth')
+const { verifyToken, isAdmin } = require('../authenticator/auth')
 const {
   createNewProduct,
   getAllProducts,
@@ -11,19 +11,19 @@ const {
 } = require('../models/productModel')
 
 // add a new product admin
-router.post('/', createNewProduct)
+router.post('/', isAdmin, createNewProduct)
 
 // get all products by category
-router.get('/', getAllProducts)
+router.get('/', verifyToken, isAdmin, getAllProducts)
 
 // get a single product
-router.get('/:id', getSingleProduct)
+router.get('/:id', verifyToken, isAdmin, getSingleProduct)
 
 // update a product admin
-router.put('/:id', updateProduct)
+router.put('/:id', isAdmin, updateProduct)
 
 // delete a product admin
-router.delete('/:id', deleteProduct)
+router.delete('/:id', isAdmin, deleteProduct)
 
 
 module.exports = router;
